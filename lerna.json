@@ -1,6 +1,5 @@
 {
   "packages": [
-    "shared/**/*",
     "packages/*"
   ],
   "version": "independent",
