@@ -3,14 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "shared/*"
   ],
   "scripts": {
     "clean": "lerna clean --yes && rimraf node_modules",
     "clean:build": "lerna exec -- rimraf \"{.next,dist,out,build,.docz}\"",
+    "lint": "eslint .",
     "start:all": "lerna run --parallel start",
+    "build:all": "lerna run --parallel build",
     "start:web-app": "yarn workspace @ute-exchange/web-app run start",
-    "start:dashboard": "yarn workspace @ute-exchange/dashboard run start"
+    "start:dashboard": "yarn workspace @ute-exchange/dashboard run start",
+    "build:web-app": "yarn workspace @ute-exchange/web-app run build",
+    "build:dashboard": "yarn workspace @ute-exchange/dashboard run build",
+    "serve:web-app": "serve -s ./packages/web-app/build",
+    "serve:dashboard": "serve -s ./packages/dashboard/build"
   },
   "husky": {
     "hooks": {
@@ -22,7 +29,6 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
-    "eslint-config-react-app": "^5.2.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.0.7",
@@ -31,5 +37,9 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "serve": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=10.16.0",
+    "yarn": ">=1.21.0"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "button.filter": "Filter",
+  "button.clear": "Clear",
+  "button.create": "Create",
+
+  "label.active": "Active",
+  "label.inactive": "Inactive"
+}
