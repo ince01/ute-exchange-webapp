@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
 
@@ -11,35 +12,31 @@ function Dashboard() {
   }, []);
 
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
-          <h3>UTE-EXCHANGE</h3>
-        </div>
+    <Layout hasSider style={{ height: '100vh' }}>
+      <Sider trigger={null} breakpoint="md" collapsible collapsed={collapsed}>
+        <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
-            <Icon type="user" />
+            <UserOutlined />
             <span>nav 1</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="video-camera" />
+            <UserOutlined />
             <span>nav 2</span>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="upload" />
+            <UserOutlined />
             <span>nav 3</span>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
         <Header style={{ background: '#fff', padding: '0 16px' }}>
-          <Icon
-            className="trigger"
-            width={10}
-            height={10}
-            type={collapsed ? 'menu-unfold' : 'menu-fold'}
-            onClick={toggle}
-          />
+          {collapsed ? (
+            <MenuUnfoldOutlined style={{ fontSize: '18px', color: '#08c' }} onClick={toggle} />
+          ) : (
+            <MenuFoldOutlined style={{ fontSize: '18px', color: '#08c' }} onClick={toggle} />
+          )}
         </Header>
         <Content
           style={{
