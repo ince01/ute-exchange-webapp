@@ -2,9 +2,7 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 
 export const changeLanguage = createAction('LANGUAGE/CHANGE_LOCALE');
 
-const inititalState = {
-  locale: 'vi',
-};
+const inititalState = { locale: 'vi' };
 
 const languageReducer = createReducer(inititalState, {
   [changeLanguage]: state => {

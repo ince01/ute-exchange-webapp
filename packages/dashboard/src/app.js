@@ -3,11 +3,15 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Routes from './router';
 import AppProvider from './AppProvider';
+import GlobalStyles from './assets/styles/globalStyle';
 
 const App = () => (
   <Provider store={store}>
     <AppProvider>
-      <Routes />
+      <>
+        <GlobalStyles />
+        <Routes />
+      </>
     </AppProvider>
   </Provider>
 );

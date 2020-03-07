@@ -10,6 +10,7 @@ module.exports = (config, env) => {
       fs.realpathSync('../../node_modules/@ute-exchange/assets'),
       fs.realpathSync('../../node_modules/@ute-exchange/components'),
       fs.realpathSync('../../node_modules/@ute-exchange/utils'),
+      fs.realpathSync('../../node_modules/@ute-exchange/hooks'),
     ]),
     fixBabelImports('import', {
       libraryName: 'antd',

@@ -1,30 +1,30 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import config from '../../config/app.config';
-import { changeLanguage } from '../../redux/languageReducer';
-import reducer, { signInActions } from './reducer';
+// import { changeLanguage } from '../../redux/languageReducer';
+import reducer from './reducer';
 import { useInjectReducer } from '../../utils/reduxInjectors';
 
 function Login() {
   useInjectReducer({ key: 'auth', reducer });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const intl = useIntl();
 
-  const onClick = () => {
-    dispatch(changeLanguage({ locale: 'en' }));
-    dispatch(signInActions.request('huhuuu'));
-  };
+  // const onClick = () => {
+  //   dispatch(changeLanguage({ locale: 'en' }));
+  //   dispatch(signInActions.request('huhuuu'));
+  // };
 
   return (
     <div className="App">
       <header className="App-header">
         <img alt="logo" src={config.appLogo} />
-        <button type="button" onClick={onClick}>
+        <a type="button" href="/dashboard">
           Change language
-        </button>
+        </a>
         <p>{intl.formatMessage({ id: 'label.active' })}</p>
         <p>
           Edit <code>src/App.js</code> and save to reload.

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { ConfigProvider } from 'antd';
+import themes from './config/theme/theme.config';
 import AppLocale from './config/translations';
 
 function AppProvider({ children }) {
@@ -10,9 +12,11 @@ function AppProvider({ children }) {
   const currentAppLocale = AppLocale[locale];
 
   return (
-    <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
-      <ConfigProvider locale={currentAppLocale.antd}>{children}</ConfigProvider>
-    </IntlProvider>
+    <ConfigProvider locale={currentAppLocale.antd}>
+      <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+        <ThemeProvider theme={themes.defaultTheme}>{children}</ThemeProvider>
+      </IntlProvider>
+    </ConfigProvider>
   );
 }
 

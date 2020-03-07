@@ -1,55 +1,64 @@
-import React, { useCallback, useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Layout } from 'antd';
+import useWindowSize from '@ute-exchange/hooks/useWindowSize';
+import appConfig from '../../config/app.config';
+import Sidebar from './components/Sidebar/Sidebar';
+import Topbar from './components/Topbar/Topbar';
+// import DashboardRoutes from './DashboardRoutes';
+import { actions } from '../../redux/appReducer';
 
-const { Header, Sider, Content } = Layout;
+import { DashboardContainer, DashboardGlobalStyles } from './Dashboard.styles';
+
+const { toggleAll } = actions;
+const { Content, Footer } = Layout;
+const styles = {
+  layout: { flexDirection: 'row', overflowX: 'hidden' },
+  content: {
+    padding: '70px 0 0',
+    flexShrink: '0',
+    background: '#f1f3f6',
+    position: 'relative',
+  },
+  footer: {
+    background: '#ffffff',
+    textAlign: 'center',
+    borderTop: '1px solid #ededed',
+  },
+};
 
 function Dashboard() {
-  const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
+  const appHeight = useSelector(state => state.app.height);
 
-  const toggle = useCallback(() => {
-    setCollapsed(preState => !preState);
-  }, []);
+  const { width, height } = useWindowSize();
+
+  React.useEffect(() => {
+    dispatch(toggleAll(width, height));
+  }, [width, height, dispatch]);
 
   return (
-    <Layout hasSider style={{ height: '100vh' }}>
-      <Sider trigger={null} breakpoint="md" collapsible collapsed={collapsed}>
-        <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
-            <UserOutlined />
-            <span>nav 1</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <UserOutlined />
-            <span>nav 2</span>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <UserOutlined />
-            <span>nav 3</span>
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#fff', padding: '0 16px' }}>
-          {collapsed ? (
-            <MenuUnfoldOutlined style={{ fontSize: '18px', color: '#08c' }} onClick={toggle} />
-          ) : (
-            <MenuFoldOutlined style={{ fontSize: '18px', color: '#08c' }} onClick={toggle} />
-          )}
-        </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            background: '#fff',
-            minHeight: 280,
-          }}
-        >
-          Content
-        </Content>
+    <DashboardContainer>
+      <DashboardGlobalStyles />
+      <Layout style={{ height }}>
+        <Topbar />
+        <Layout style={styles.layout}>
+          <Sidebar />
+          <Layout
+            className="isoContentMainLayout"
+            style={{
+              height: appHeight,
+            }}
+          >
+            <Content className="isomorphicContent" style={styles.content}>
+              {/* <DashboardRoutes /> */}
+              <h1>Content</h1>
+            </Content>
+            <Footer style={styles.footer}>{appConfig.footerText}</Footer>
+          </Layout>
+        </Layout>
       </Layout>
-    </Layout>
+    </DashboardContainer>
   );
 }
 
