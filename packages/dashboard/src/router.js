@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Spin } from 'antd';
 import { ErrorBoundary } from '@ute-exchange/components';
 // import PrivateRoute from './components/common/PrivateRoute';
@@ -9,7 +9,7 @@ const publicRoutes = [
   {
     id: 'login',
     path: '/',
-    component: lazy(() => import('./containers/LoginPage')),
+    component: lazy(() => import('./containers/SignIn')),
     exact: true,
   },
   {

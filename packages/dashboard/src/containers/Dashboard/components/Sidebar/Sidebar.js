@@ -76,13 +76,11 @@ export default function Sidebar() {
       >
         <div className="isoLogoWrapper">
           {isCollapsed ? (
-            <div>
-              <h3>
-                <Link to="/dashboard">
-                  <FontAwesomeIcon icon={faReact} />
-                </Link>
-              </h3>
-            </div>
+            <h3>
+              <Link to="/dashboard">
+                <FontAwesomeIcon icon={faReact} />
+              </Link>
+            </h3>
           ) : (
             <h3>
               <Link to="/dashboard">{appConfig.appName}</Link>
