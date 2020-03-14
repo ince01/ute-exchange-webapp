@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn build:css && react-app-rewired start",
+    "start": "react-app-rewired start",
     "build": "yarn build:css && react-app-rewired build",
     "test": "react-app-rewired test",
-    "build:css": "tailwindcss build src/assets/styles/tailwind.scss -o src/assets/styles/globalStyles.css"
+    "build:css": "tailwindcss build src/assets/styles/tailwind.scss -o src/assets/styles/globalStyles.css",
+    "extract-intl": "NODE_ENV=development extract-messages -l en_US,vi_VN -o src/config/translations/locales --flat true -d en_US 'src/**/messages.js'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -29,6 +30,7 @@
     "react": "^16.12.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.12.0",
+    "react-hook-form": "^5.0.3",
     "react-intl": "^3.12.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

@@ -127,7 +127,6 @@ const SignInStyleWrapper = styled.div`
       .forgotPass {
         font-size: 12px;
         color: ${palette('text', 3)};
-        margin-bottom: 10px;
         text-decoration: none;
 
         &:hover {

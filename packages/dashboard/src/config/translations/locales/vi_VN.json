@@ -1,8 +1,10 @@
 {
-  "button.filter": "Lọc",
-  "button.clear": "Bỏ lọc",
-  "button.create": "Tạo mới",
-
-  "label.active": "Đã kích hoạt",
-  "label.inactive": "Chưa kích hoạt"
+  "signIn.description.forgotPass": "",
+  "signIn.description.note": "",
+  "signIn.label.password": "",
+  "signIn.label.rememberMe": "",
+  "signIn.label.signIn": "",
+  "signIn.label.signUp": "",
+  "signIn.label.title": "",
+  "signIn.label.userName": ""
 }

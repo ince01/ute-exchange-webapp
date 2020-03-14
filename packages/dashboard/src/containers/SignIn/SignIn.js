@@ -1,46 +1,45 @@
 import React from 'react';
 import { Input, Checkbox, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import msg from './messages';
 import SignInStyleWrapper from './SignIn.style';
 
 function SignIn() {
+  const { formatMessage: f } = useIntl();
   return (
     <SignInStyleWrapper>
       <div className="loginContentWrapper">
         <div className="loginContent">
           <div className="logoWrapper">
             <Link to="/dashboard">
-              <FormattedMessage id="page.signInTitle" />
+              <FormattedMessage {...msg.label.pageTitle} />
             </Link>
           </div>
           <div className="signInForm">
             <form>
               <div className="inputWrapper">
-                <Input size="large" placeholder="Username" autoComplete="true" />
+                <Input size="large" placeholder={f(msg.label.userName)} autoComplete="true" />
               </div>
               <div className="inputWrapper">
-                <Input size="large" type="password" placeholder="Password" autoComplete="false" />
+                <Input size="large" type="password" placeholder={f(msg.label.password)} autoComplete="false" />
               </div>
-              <div className="inputWrapper leftRightComponent">
+              <div className="inputWrapper flex flex-row items-center justify-between">
                 <Checkbox>
-                  <FormattedMessage id="page.signInRememberMe" />
+                  <FormattedMessage {...msg.label.rememberMe} />
                 </Checkbox>
-                <Button type="primary">
-                  <FormattedMessage id="page.signInButton" />
-                </Button>
+                <Link to="/forgotpassword" className="forgotPass">
+                  <FormattedMessage {...msg.description.forgotPass} />
+                </Link>
               </div>
               <p className="helperText">
-                <FormattedMessage id="page.signInPreview" />
+                <FormattedMessage {...msg.description.note} />
               </p>
             </form>
-            <div className="centerComponent helperWrapper">
-              <Link to="/forgotpassword" className="forgotPass">
-                <FormattedMessage id="page.signInForgotPass" />
-              </Link>
-              <Link to="/signup">
-                <FormattedMessage id="page.signInCreateAccount" />
-              </Link>
+            <div className="helperWrapper flex">
+              <Button type="primary">
+                <FormattedMessage {...msg.label.signIn} />
+              </Button>
             </div>
           </div>
         </div>

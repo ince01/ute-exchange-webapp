@@ -14,7 +14,7 @@ function AppProvider({ children }) {
   return (
     <ConfigProvider locale={currentAppLocale.antd}>
       <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
-        <ThemeProvider theme={themes.defaultTheme}>{children}</ThemeProvider>
+        <ThemeProvider theme={themes.defaultTheme}>{React.Children.only(children)}</ThemeProvider>
       </IntlProvider>
     </ConfigProvider>
   );

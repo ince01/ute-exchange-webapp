@@ -9,6 +9,7 @@
   "scripts": {
     "clean": "lerna clean --yes && rimraf node_modules",
     "clean:build": "lerna exec -- rimraf \"{.next,dist,out,build,.docz}\"",
+    "extract-intl:dashboard": "yarn workspace @ute-exchange/dashboard run extract-intl",
     "lint": "eslint .",
     "start:all": "lerna run --parallel start",
     "build:all": "lerna run --parallel build",
@@ -37,6 +38,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "extract-react-intl-messages": "^3.0.0",
     "husky": "^3.0.7",
     "lerna": "^3.16.4",
     "lint-staged": "^9.4.0",

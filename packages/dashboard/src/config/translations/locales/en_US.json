@@ -1,8 +1,10 @@
 {
-  "button.filter": "Filter",
-  "button.clear": "Clear",
-  "button.create": "Create",
-
-  "label.active": "Active",
-  "label.inactive": "Inactive"
+  "signIn.description.forgotPass": "Forgot password ?",
+  "signIn.description.note": "username: demo, password: demo",
+  "signIn.label.password": "Password",
+  "signIn.label.rememberMe": "Remember me",
+  "signIn.label.signIn": "Sign in",
+  "signIn.label.signUp": "Sign up",
+  "signIn.label.title": "UTE Exchange",
+  "signIn.label.userName": "User name"
 }

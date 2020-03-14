@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { createReducer } from '@reduxjs/toolkit';
-import actionCreator from '../../utils/redux';
+import actionCreator from '../../../utils/redux';
 
 export const signInActions = actionCreator('AUTH/LOGIN');
 
