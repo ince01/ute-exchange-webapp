@@ -1,22 +1,36 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/sort-comp */
 /* eslint-disable react/static-property-placement */
+/* eslint-disable react/sort-comp */
 import React from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { ReactReduxContext } from 'react-redux';
+import { useStore, ReactReduxContext } from 'react-redux';
 
 import getInjectors from './sagaInjectors';
 
 /**
- * Dynamically injects a saga, passes component's props as saga arguments
+ * A higher-order component that dynamically injects a saga when the component
+ * is instantiated. There are several possible "modes" / "behaviours" that
+ * dictate how and when the saga should be injected and ejected
  *
- * @param {string} key A key of the saga
- * @param {function} saga A root saga that will be injected
- * @param {string} [mode] By default (constants.DAEMON) the saga will be started
- * on component mount and never canceled or started again. Another two options:
- *   - constants.RESTART_ON_REMOUNT — the saga will be started on component mount and
- *   cancelled with `task.cancel()` on component unmount for improved performance,
- *   - constants.ONCE_TILL_UNMOUNT — behaves like 'RESTART_ON_REMOUNT' but never runs it again.
+ * @param {Object} params
+ * @param {string} params.key The key to inject the saga under
+ * @param {function} params.saga The saga that will be injected
+ * @param {string} [params.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
+ *
+ * @example
+ *
+ * class BooksManager extends React.PureComponent {
+ *  render() {
+ *    return null;
+ *  }
+ * }
+ *
+ * export default injectSaga({ key: "books", saga: booksSaga })(BooksManager)
+ *
+ * @public
  *
  */
 export default ({ key, saga, mode }) => WrappedComponent => {
@@ -32,7 +46,7 @@ export default ({ key, saga, mode }) => WrappedComponent => {
 
       this.injectors = getInjectors(context.store);
 
-      this.injectors.injectSaga(key, { saga, mode }, this.props);
+      this.injectors.injectSaga(key, { saga, mode });
     }
 
     componentWillUnmount() {
@@ -47,17 +61,44 @@ export default ({ key, saga, mode }) => WrappedComponent => {
   return hoistNonReactStatics(InjectSaga, WrappedComponent);
 };
 
+/**
+ * A react hook that dynamically injects a saga when the hook is run
+ *
+ * @param {Object} params
+ * @param {string} params.key The key to inject the saga under
+ * @param {function} params.saga The saga that will be injected
+ * @param {string} [params.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
+ *
+ * @example
+ *
+ * function BooksManager() {
+ *   useInjectSaga({ key: "books", saga: booksSaga })
+ *
+ *   return null;
+ * }
+ *
+ * @public
+ */
 const useInjectSaga = ({ key, saga, mode }) => {
-  const context = React.useContext(ReactReduxContext);
-  React.useEffect(() => {
-    const injectors = getInjectors(context.store);
-    injectors.injectSaga(key, { saga, mode });
+  const store = useStore();
 
-    return () => {
-      injectors.ejectSaga(key);
-    };
+  const isInjected = React.useRef(false);
+
+  if (!isInjected.current) {
+    getInjectors(store).injectSaga(key, { saga, mode });
+    isInjected.current = true;
+  }
+
+  React.useEffect(
+    () => () => {
+      getInjectors(store).ejectSaga(key);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [],
+  );
 };
 
 export { useInjectSaga };

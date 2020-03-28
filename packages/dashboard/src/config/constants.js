@@ -1,3 +1,3 @@
-export const MODULES = ['building', 'resident', 'customer', 'residentApp'];
+export const MODULES = ['users', 'products', 'customer'];
 
 export default MODULES;

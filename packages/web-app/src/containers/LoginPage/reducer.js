@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { createReducer } from '@reduxjs/toolkit';
 import actionCreator from '../../utils/redux';

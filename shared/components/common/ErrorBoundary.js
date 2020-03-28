@@ -19,16 +19,21 @@ class ErrorBoundary extends Component {
 
   render() {
     const { hasError } = this.state;
-    const { children } = this.props;
+    const { children, fallback } = this.props;
     if (hasError) {
-      return <h1>Something went wrong.</h1>;
+      return fallback;
     }
     return children;
   }
 }
 
+ErrorBoundary.defaultProps = {
+  fallback: <h1>Something went wrong.</h1>,
+};
+
 ErrorBoundary.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  fallback: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
 export default ErrorBoundary;

@@ -1,4 +1,5 @@
 import ErrorBoundary from './ErrorBoundary';
 import PrivateRoute from './PrivateRoute';
+import InteractiveRoute from './InteractiveRoute';
 
-export { ErrorBoundary, PrivateRoute };
+export { ErrorBoundary, PrivateRoute, InteractiveRoute };

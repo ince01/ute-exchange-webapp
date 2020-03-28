@@ -1,7 +1,5 @@
 import { convertToDateMonth, convertNumber } from './converts';
+import mappingCodeError from './mappingCodeError';
+import isAuthenticated from './isAuthenticated';
 
-// prettier-ignore
-export {
-  convertToDateMonth,
-  convertNumber
-};
+export { convertToDateMonth, convertNumber, mappingCodeError, isAuthenticated };

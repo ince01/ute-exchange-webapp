@@ -1,5 +1,5 @@
 import { HTTP_METHOD } from './constants';
-import makeRequest from './api';
+import makeRequest, { FetchError } from './api';
 
 export default makeRequest;
-export { HTTP_METHOD };
+export { HTTP_METHOD, FetchError };

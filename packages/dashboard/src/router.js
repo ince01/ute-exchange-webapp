@@ -1,43 +1,49 @@
+/* eslint-disable no-unused-vars */
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Spin } from 'antd';
-import { ErrorBoundary } from '@ute-exchange/components';
-// import PrivateRoute from './components/common/PrivateRoute';
-// import { MODULES } from './config/constants';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import { InteractiveRoute } from '@ute-exchange/components';
+import Spin from '@ute-exchange/components/Spin';
+import intialBoot from 'redux/boot';
+import { isAuthenticated } from 'utils/helpers';
 
-const publicRoutes = [
+const interactiveRoutes = [
   {
     id: 'login',
-    path: '/',
+    path: '/signIn',
+    redirectPath: '/',
     component: lazy(() => import('./containers/SignIn')),
     exact: true,
+    isAccepted: () => !isAuthenticated(),
   },
   {
     id: 'dashboard',
-    path: '/dashboard',
+    path: '/',
+    redirectPath: '/signIn',
     component: lazy(() => import('./containers/Dashboard')),
-    exact: true,
+    isAccepted: isAuthenticated,
   },
 ];
 
-// const moduleAccepted = MODULES.join('|');
+const bootApp = intialBoot();
 
-function Routes() {
+export default function AppRouter() {
+  bootApp.booting();
   return (
-    <ErrorBoundary>
+    <BrowserRouter>
       <Suspense fallback={<Spin />}>
-        <BrowserRouter>
-          <Switch>
-            {publicRoutes.map(route => (
-              <Route key={route.id} path={route.path} exact={route.exact} component={route.component} />
-            ))}
-            {/* <PrivateRoute path="/" component={Dashboard} exact /> */}
-            {/* <Route path="*" component={NotFoundPage} /> */}
-          </Switch>
-        </BrowserRouter>
+        <Switch>
+          {interactiveRoutes.map(route => (
+            <InteractiveRoute
+              key={route.id}
+              path={route.path}
+              exact={route.exact}
+              component={route.component}
+              redirectPath={route.redirectPath}
+              isAccepted={route.isAccepted}
+            />
+          ))}
+        </Switch>
       </Suspense>
-    </ErrorBoundary>
+    </BrowserRouter>
   );
 }
-
-export default Routes;

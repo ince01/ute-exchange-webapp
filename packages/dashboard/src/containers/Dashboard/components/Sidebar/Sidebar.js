@@ -6,14 +6,20 @@ import { Layout, Menu } from 'antd';
 import Scrollbar from '@ute-exchange/components/ScrollBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact } from '@fortawesome/free-brands-svg-icons';
-import { actions } from '../../../../redux/appReducer';
+import { actions } from 'redux/appReducer';
+import appConfig from 'config/app.config';
 import options from './options';
 import SidebarWrapper from './Sidebar.styles';
 import SidebarMenu from './SidebarMenu';
-import appConfig from '../../../../config/app.config';
 
 const { Sider } = Layout;
 const { toggleOpenDrawer, changeOpenKeys, changeCurrent, toggleCollapsed } = actions;
+const getAncestorKeys = key => {
+  const map = {
+    sub3: ['sub2'],
+  };
+  return map[key] || [];
+};
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -41,17 +47,10 @@ export default function Sidebar() {
     dispatch(changeOpenKeys(nextOpenKeys));
   }
 
-  const getAncestorKeys = key => {
-    const map = {
-      sub3: ['sub2'],
-    };
-    return map[key] || [];
-  };
-
   const isCollapsed = clone(collapsed) && !clone(openDrawer);
 
   const mode = isCollapsed === true ? 'vertical' : 'inline';
-  const onMouseEnter = event => {
+  const onMouseEnter = () => {
     if (collapsed && openDrawer === false) {
       dispatch(toggleOpenDrawer());
     }
@@ -70,11 +69,11 @@ export default function Sidebar() {
         collapsible
         collapsed={isCollapsed}
         width={240}
-        className="isomorphicSidebar"
+        className="sidebar"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <div className="isoLogoWrapper">
+        <div className="logoWrapper">
           {isCollapsed ? (
             <h3>
               <Link to="/dashboard">
@@ -91,7 +90,7 @@ export default function Sidebar() {
           <Menu
             onClick={handleClick}
             theme="dark"
-            className="isoDashboardMenu"
+            className="dashboardMenu"
             mode={mode}
             openKeys={isCollapsed ? [] : openKeys}
             selectedKeys={current}

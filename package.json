@@ -17,8 +17,8 @@
     "start:dashboard": "yarn workspace @ute-exchange/dashboard run start",
     "build:web-app": "yarn workspace @ute-exchange/web-app run build",
     "build:dashboard": "yarn workspace @ute-exchange/dashboard run build",
-    "serve:web-app": "serve -s ./packages/web-app/build",
-    "serve:dashboard": "serve -s ./packages/dashboard/build"
+    "serve:web-app": "yarn workspace @ute-exchange/web-app run serve",
+    "serve:dashboard": "yarn workspace @ute-exchange/dashboard run serve"
   },
   "husky": {
     "hooks": {

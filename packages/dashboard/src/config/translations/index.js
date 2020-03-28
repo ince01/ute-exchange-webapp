@@ -1,8 +1,6 @@
 import { Enlang, Vilang } from './entries';
 
-const AppLocale = {
+export default {
   en: Enlang,
   vi: Vilang,
 };
-
-export default AppLocale;

@@ -7,18 +7,18 @@ import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from './constants';
 const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 
 const checkKey = key =>
-  invariant(isString(key) && !isEmpty(key), '(src/utils...) injectSaga: Expected `key` to be a non empty string');
+  invariant(isString(key) && !isEmpty(key), '(redux-injectors...) injectSaga: Expected `key` to be a non empty string');
 
 const checkDescriptor = descriptor => {
   const shape = {
     saga: isFunction,
     mode: mode => isString(mode) && allowedModes.includes(mode),
   };
-  invariant(conformsTo(descriptor, shape), '(src/utils...) injectSaga: Expected a valid saga descriptor');
+  invariant(conformsTo(descriptor, shape), '(redux-injectors...) injectSaga: Expected a valid saga descriptor');
 };
 
 export function injectSagaFactory(store, isValid) {
-  return function injectSaga(key, descriptor = {}, args) {
+  return function injectSaga(key, descriptor = {}) {
     if (!isValid) checkStore(store);
 
     const newDescriptor = {
@@ -45,7 +45,7 @@ export function injectSagaFactory(store, isValid) {
       /* eslint-disable no-param-reassign */
       store.injectedSagas[key] = {
         ...newDescriptor,
-        task: store.runSaga(saga, args),
+        task: store.runSaga(saga),
       };
       /* eslint-enable no-param-reassign */
     }

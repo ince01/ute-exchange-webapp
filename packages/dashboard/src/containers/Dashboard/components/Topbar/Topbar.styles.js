@@ -3,7 +3,7 @@ import { palette } from 'styled-theme';
 import { transition, borderRadius, boxShadow } from '@ute-exchange/utils';
 
 const TopbarWrapper = styled.div`
-  .isomorphicTopbar {
+  .topbar {
     display: flex;
     justify-content: space-between;
     background-color: #ffffff;

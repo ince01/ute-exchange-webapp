@@ -3,16 +3,29 @@
 /* eslint-disable react/static-property-placement */
 import React from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { ReactReduxContext } from 'react-redux';
+import { useStore, ReactReduxContext } from 'react-redux';
 
 import getInjectors from './reducerInjectors';
 
 /**
- * Dynamically injects a reducer
+ * A higher-order component that dynamically injects a reducer when the
+ * component is instantiated
  *
- * @param {string} key A key of the reducer
- * @param {function} reducer A reducer that will be injected
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
  *
+ * @example
+ *
+ * class BooksManager extends React.PureComponent {
+ *   render() {
+ *     return null;
+ *   }
+ * }
+ *
+ * export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
+ *
+ * @public
  */
 export default ({ key, reducer }) => WrappedComponent => {
   class ReducerInjector extends React.Component {
@@ -36,12 +49,32 @@ export default ({ key, reducer }) => WrappedComponent => {
   return hoistNonReactStatics(ReducerInjector, WrappedComponent);
 };
 
+/**
+ * A react hook that dynamically injects a reducer when the hook is run
+ *
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
+ *
+ * @example
+ *
+ * function BooksManager() {
+ *   useInjectReducer({ key: "books", reducer: booksReducer })
+ *
+ *   return null;
+ * }
+ *
+ * @public
+ */
 const useInjectReducer = ({ key, reducer }) => {
-  const context = React.useContext(ReactReduxContext);
-  React.useEffect(() => {
-    getInjectors(context.store).injectReducer(key, reducer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const store = useStore();
+
+  const isInjected = React.useRef(false);
+
+  if (!isInjected.current) {
+    getInjectors(store).injectReducer(key, reducer);
+    isInjected.current = true;
+  }
 };
 
 export { useInjectReducer };

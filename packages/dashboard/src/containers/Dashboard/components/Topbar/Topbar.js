@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { actions } from '../../../../redux/appReducer';
+import { actions } from 'redux/appReducer';
 // import TopbarNotification from './TopbarNotification';
 // import TopbarMessage from './TopbarMessage';
 // import TopbarSearch from './TopbarSearch';
@@ -29,7 +29,7 @@ export default function Topbar() {
 
   return (
     <TopbarWrapper>
-      <Header style={styling} className={isCollapsed ? 'isomorphicTopbar collapsed' : 'isomorphicTopbar'}>
+      <Header style={styling} className={isCollapsed ? 'topbar collapsed' : 'topbar'}>
         <div className="isoLeft">
           {React.createElement(isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',

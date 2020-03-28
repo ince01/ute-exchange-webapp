@@ -140,7 +140,7 @@ export const DashboardContainer = styled.div`
   .ant-layout {
     background: ${palette('secondary', 1)};
 
-    &.isoContentMainLayout {
+    &.contentMainLayout {
       overflow: auto;
       overflow-x: hidden;
       @media only screen and (min-width: 768px) and (max-width: 1220px) {
@@ -155,7 +155,7 @@ export const DashboardContainer = styled.div`
     }
   }
 
-  .isoLayoutContent {
+  .layoutContent {
     width: 100%;
     padding: 35px;
     background-color: #ffffff;
@@ -163,7 +163,7 @@ export const DashboardContainer = styled.div`
     height: 100%;
   }
 
-  .isomorphicLayout {
+  .layout {
     width: calc(100% - 240px);
     flex-shrink: 0;
     overflow-x: hidden !important;

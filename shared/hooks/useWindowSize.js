@@ -32,6 +32,7 @@ const useWindowSize = (options = {}) => {
         window.removeEventListener('resize', onResize, true);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return size;

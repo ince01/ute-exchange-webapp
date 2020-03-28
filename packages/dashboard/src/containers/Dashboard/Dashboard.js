@@ -2,11 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
 import useWindowSize from '@ute-exchange/hooks/useWindowSize';
-import appConfig from '../../config/app.config';
+import { actions } from 'redux/appReducer';
+import appConfig from 'config/app.config';
+
 import Sidebar from './components/Sidebar/Sidebar';
 import Topbar from './components/Topbar/Topbar';
 // import DashboardRoutes from './DashboardRoutes';
-import { actions } from '../../redux/appReducer';
 
 import { DashboardContainer, DashboardGlobalStyles } from './Dashboard.styles';
 
@@ -44,13 +45,8 @@ function Dashboard() {
         <Topbar />
         <Layout style={styles.layout}>
           <Sidebar />
-          <Layout
-            className="isoContentMainLayout"
-            style={{
-              height: appHeight,
-            }}
-          >
-            <Content className="isomorphicContent" style={styles.content}>
+          <Layout className="contentMainLayout" style={{ height: appHeight }}>
+            <Content style={styles.content}>
               {/* <DashboardRoutes /> */}
               <h1>Content</h1>
             </Content>

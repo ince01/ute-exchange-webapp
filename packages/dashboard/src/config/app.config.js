@@ -5,5 +5,7 @@ export default {
   appIcon: 'ion-flash',
   appLogo: logo,
   footerText: `UTE Exchange Dashboard @ ${new Date().getFullYear()} Developed by UTE Team`,
-  apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:3015/api/v1/',
+  env: process.env.NODE_ENV,
+  apiUrl: process.env.REACT_APP_API_URL,
+  jwtPrefix: process.env.REACT_APP_JWT_PREFIX,
 };
