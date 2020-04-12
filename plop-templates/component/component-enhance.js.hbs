@@ -1,0 +1,16 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+function use{{pascalCase name}}Enhance() {
+  useEffect(() => {
+    console.log('mount');
+  }, []);
+
+  const location = useLocation();
+
+  return {
+    location,
+  };
+}
+
+export default use{{pascalCase name}}Enhance;

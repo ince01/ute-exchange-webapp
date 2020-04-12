@@ -18,7 +18,8 @@
     "build:web-app": "yarn workspace @ute-exchange/web-app run build",
     "build:dashboard": "yarn workspace @ute-exchange/dashboard run build",
     "serve:web-app": "yarn workspace @ute-exchange/web-app run serve",
-    "serve:dashboard": "yarn workspace @ute-exchange/dashboard run serve"
+    "serve:dashboard": "yarn workspace @ute-exchange/dashboard run serve",
+    "generate": "plop"
   },
   "husky": {
     "hooks": {
@@ -42,6 +43,7 @@
     "husky": "^3.0.7",
     "lerna": "^3.16.4",
     "lint-staged": "^9.4.0",
+    "plop": "^2.6.0",
     "postcss-cli": "^7.1.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",

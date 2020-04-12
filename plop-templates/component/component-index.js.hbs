@@ -1,0 +1,12 @@
+import { createFactory } from 'react';
+import {{pascalCase name}} from './{{pascalCase name}}';
+import useEnhance from './{{camelCase name}}Enhance';
+
+export default function(props) {
+  const factory = createFactory({{pascalCase name}});
+  const enhanceProps = useEnhance();
+  return factory({
+    ...props,
+    ...enhanceProps,
+  });
+}
