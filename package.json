@@ -19,7 +19,7 @@
     "build:dashboard": "yarn workspace @ute-exchange/dashboard run build",
     "serve:web-app": "yarn workspace @ute-exchange/web-app run serve",
     "serve:dashboard": "yarn workspace @ute-exchange/dashboard run serve",
-    "generate": "plop"
+    "gen-code": "plop"
   },
   "husky": {
     "hooks": {

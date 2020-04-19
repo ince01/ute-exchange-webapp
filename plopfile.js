@@ -38,4 +38,27 @@ module.exports = plop => {
       },
     ],
   });
+  plop.setGenerator('addNewComponent', {
+    description: 'Create a new component from Antd',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is your component name?',
+        validate(value) {
+          if (value === '') {
+            return 'Please enter a valid name !';
+          }
+          return true;
+        },
+      },
+    ],
+    actions: [
+      {
+        type: 'add',
+        path: 'shared/components/{{pascalCase name}}/index.js',
+        templateFile: 'plop-templates/new-component/new-component-index.js.hbs',
+      },
+    ],
+  });
 };

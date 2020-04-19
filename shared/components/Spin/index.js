@@ -1,4 +1,4 @@
-import React, { ReactChildren } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 
@@ -11,7 +11,7 @@ export default function Spiner({ children, ...rest }) {
 }
 
 Spiner.defaultProps = {
-  children: ReactChildren,
+  children: null,
 };
 
 Spiner.propTypes = {
