@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { InteractiveRoute } from '@ute-exchange/components';
-import Spin from '@ute-exchange/components/Spin';
+import { InteractiveRoute, Spin } from '@ute-exchange/components';
 import intialBoot from 'redux/boot';
 import { isAuthenticated } from 'utils/helpers';
 

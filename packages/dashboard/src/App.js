@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
-import AppRouter from './router';
+import AppRouter from './AppRouter';
 import AppProvider from './AppProvider';
 
 const App = () => (

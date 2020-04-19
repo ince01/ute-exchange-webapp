@@ -7,4 +7,4 @@ export const HTTP_METHOD = {
 
 export const PUBLIC_API = new Set(['/user/signIn']);
 
-export const SESSION_ERROR_CODES = new Set(['INVAILD_TOKEN', 'TOKEN_EXPIRED']);
+export const AUTHENTICATED_ERROR_CODES = new Set(['INVAILD_TOKEN', 'TOKEN_EXPIRED']);

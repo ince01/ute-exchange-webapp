@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Checkbox, Button, Form } from 'antd';
+import { Input, Checkbox, Button, Form } from '@ute-exchange/components';
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { DevTool } from 'react-hook-form-devtools';

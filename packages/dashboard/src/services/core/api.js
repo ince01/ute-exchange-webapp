@@ -3,7 +3,7 @@ import { stringify } from 'query-string';
 import { join, isEmpty } from 'lodash';
 import { getToken, removeToken } from '@ute-exchange/utils';
 import appConfig from 'config/app.config';
-import { PUBLIC_API, SESSION_ERROR_CODES } from './constants';
+import { PUBLIC_API, AUTHENTICATED_ERROR_CODES } from './constants';
 
 const { apiUrl, jwtPrefix } = appConfig;
 
@@ -47,7 +47,9 @@ function createAxiosInstance() {
     function handleError(error) {
       const codeError = error?.response?.data?.code;
 
-      if (SESSION_ERROR_CODES.has(codeError)) removeToken();
+      if (AUTHENTICATED_ERROR_CODES.has(codeError)) {
+        removeToken();
+      }
 
       return Promise.reject(new FetchError(error.message, error));
     },

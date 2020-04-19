@@ -1,6 +1,6 @@
 import appConfig from 'config/app.config';
 import messages from 'services/core/messages';
-import { SESSION_ERROR_CODES } from 'services/core/constants';
+import { AUTHENTICATED_ERROR_CODES } from 'services/core/constants';
 
 export default function mappingCodeError(codeErrorMap, error) {
   const defaultErrorMessage =
@@ -11,7 +11,9 @@ export default function mappingCodeError(codeErrorMap, error) {
         }
       : messages.error.requestFailed;
 
-  if (SESSION_ERROR_CODES.has(error.response.code)) return messages.error.sessionExpired;
+  if (AUTHENTICATED_ERROR_CODES.has(error.response.code)) {
+    return messages.error.sessionExpired;
+  }
 
   return codeErrorMap.get(error.response?.code) || defaultErrorMessage;
 }
