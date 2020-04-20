@@ -1,24 +1,28 @@
-import React from 'react';
-import throttle from 'lodash/throttle';
+import { useEffect, useState, useCallback } from 'react';
+import { throttle } from 'lodash';
 
 const events = new Set();
 const onResize = () => events.forEach(fn => fn());
 
-const useWindowSize = (options = {}) => {
+function useWindowSize(options = {}) {
   const { throttleMs = 100 } = options;
-  const [size, setSize] = React.useState({
+
+  const [size, setSize] = useState({
     width: process.browser && window.innerWidth,
     height: process.browser && window.innerHeight,
   });
 
-  const handle = throttle(() => {
-    setSize({
-      width: process.browser && window.innerWidth,
-      height: process.browser && window.innerHeight,
-    });
-  }, throttleMs);
+  const handle = useCallback(
+    throttle(() => {
+      setSize({
+        width: process.browser && window.innerWidth,
+        height: process.browser && window.innerHeight,
+      });
+    }, throttleMs),
+    [throttleMs],
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (events.size === 0) {
       window.addEventListener('resize', onResize, true);
     }
@@ -32,10 +36,9 @@ const useWindowSize = (options = {}) => {
         window.removeEventListener('resize', onResize, true);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handle]);
 
   return size;
-};
+}
 
 export default useWindowSize;

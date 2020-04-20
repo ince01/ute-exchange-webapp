@@ -1,3 +1,4 @@
+import { faUsers, faPoll, faDollyFlatbed } from '@fortawesome/free-solid-svg-icons';
 import messages from './messages';
 
 const { label } = messages;
@@ -6,17 +7,24 @@ const options = [
   {
     key: 'dashboard',
     label: label.dashboard,
-    leftIcon: 'ion-document',
+    leftIcon: faPoll,
   },
   {
     key: 'users',
     label: label.users,
-    leftIcon: 'ion-document',
+    leftIcon: faUsers,
   },
   {
     key: 'products',
     label: label.products,
-    leftIcon: 'ion-document',
+    leftIcon: faDollyFlatbed,
+    children: [
+      {
+        key: 'category',
+        label: label.category,
+      },
+    ],
   },
 ];
+
 export default options;

@@ -1,4 +1,5 @@
 export * from './common';
+export { default as Scrollbar } from './ScrollBar';
 
 export { default as Affix } from './Affix';
 export { default as Anchor } from './Anchor';

@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { createReducer, createAction } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { detectBrowserLocale } from '@ute-exchange/utils';
+import { actionCreator } from 'utils/redux';
 
 export const actions = {
-  changeLocale: createAction('language/CHANGE_LOCALE'),
+  changeLocale: actionCreator('language/CHANGE_LOCALE'),
 };
 
 const inititalState = {

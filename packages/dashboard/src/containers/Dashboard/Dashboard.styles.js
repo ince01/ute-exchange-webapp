@@ -180,6 +180,7 @@ export const DashboardContainer = styled.div`
 
   .ant-layout-footer {
     font-size: 13px;
+    padding: 12px 50px;
     @media (max-width: 767px) {
       padding: 10px 20px;
     }

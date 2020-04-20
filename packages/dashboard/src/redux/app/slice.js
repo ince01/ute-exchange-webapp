@@ -1,5 +1,5 @@
 import { getDeviceView } from '@ute-exchange/utils';
-import sideBarOptions from '../containers/Dashboard/components/Sidebar/options';
+import sideBarOptions from 'containers/Dashboard/components/Sidebar/options';
 
 export function getDefaultPath() {
   const getParent = lastRoute => {
@@ -62,6 +62,7 @@ export const actions = {
 };
 
 const preKeys = getDefaultPath();
+
 const initState = {
   collapsed: !(window.innerWidth > 1220),
   view: getDeviceView(window.innerWidth),

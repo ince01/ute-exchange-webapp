@@ -16,5 +16,9 @@ export default {
       id: `${scope}.label.products`,
       defaultMessage: 'Products',
     },
+    category: {
+      id: `${scope}.label.category`,
+      defaultMessage: 'Category',
+    },
   }),
 };

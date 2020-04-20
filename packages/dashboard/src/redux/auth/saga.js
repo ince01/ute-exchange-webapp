@@ -31,15 +31,19 @@ function* signInSaga({ payload }) {
 function* checkAuthSaga() {
   try {
     const { data } = yield call(authServices.getProfile);
+
     yield put(actions.checkAuth.success(data));
   } catch (error) {
     yield put(actions.checkAuth.error(error.response || error.message));
   }
 }
 
-function* signOutSaga() {
+function* signOutSaga({ payload }) {
+  const { history } = payload;
+
   yield call(removeToken);
-  window.history.pushState(null, null, '/signIn');
+
+  history.push('/');
 }
 
 export default function* authSaga() {

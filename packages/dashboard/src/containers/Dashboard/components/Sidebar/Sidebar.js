@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import clone from 'clone';
-import { Layout, Menu } from 'antd';
-import Scrollbar from '@ute-exchange/components/ScrollBar';
+import { Layout, Menu, Scrollbar } from '@ute-exchange/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { actions } from 'redux/appReducer';
@@ -13,7 +11,9 @@ import SidebarWrapper from './Sidebar.styles';
 import SidebarMenu from './SidebarMenu';
 
 const { Sider } = Layout;
+
 const { toggleOpenDrawer, changeOpenKeys, changeCurrent, toggleCollapsed } = actions;
+
 const getAncestorKeys = key => {
   const map = {
     sub3: ['sub2'],
@@ -21,55 +21,65 @@ const getAncestorKeys = key => {
   return map[key] || [];
 };
 
-export default function Sidebar() {
+function Sidebar() {
   const dispatch = useDispatch();
   const { view, openKeys, collapsed, openDrawer, current, height } = useSelector(state => state.app);
 
-  function handleClick(e) {
-    dispatch(changeCurrent([e.key]));
-    if (view === 'MobileView') {
-      setTimeout(() => {
-        dispatch(toggleCollapsed());
-        dispatch(toggleOpenDrawer());
-      }, 100);
-    }
-  }
-  function onOpenChange(newOpenKeys) {
-    const latestOpenKey = newOpenKeys.find(key => !(openKeys.indexOf(key) > -1));
-    const latestCloseKey = openKeys.find(key => !(newOpenKeys.indexOf(key) > -1));
-    let nextOpenKeys = [];
-    if (latestOpenKey) {
-      nextOpenKeys = getAncestorKeys(latestOpenKey).concat(latestOpenKey);
-    }
-    if (latestCloseKey) {
-      nextOpenKeys = getAncestorKeys(latestCloseKey);
-    }
-    dispatch(changeOpenKeys(nextOpenKeys));
-  }
+  const handleClick = useCallback(
+    e => {
+      dispatch(changeCurrent([e.key]));
+      if (view === 'MobileView') {
+        setTimeout(() => {
+          dispatch(toggleCollapsed());
+          dispatch(toggleOpenDrawer());
+        }, 100);
+      }
+    },
+    [view, dispatch],
+  );
 
-  const isCollapsed = clone(collapsed) && !clone(openDrawer);
+  const onOpenChange = useCallback(
+    newOpenKeys => {
+      const latestOpenKey = newOpenKeys.find(key => !(openKeys.indexOf(key) > -1));
+      const latestCloseKey = openKeys.find(key => !(newOpenKeys.indexOf(key) > -1));
+      let nextOpenKeys = [];
+      if (latestOpenKey) {
+        nextOpenKeys = getAncestorKeys(latestOpenKey).concat(latestOpenKey);
+      }
+      if (latestCloseKey) {
+        nextOpenKeys = getAncestorKeys(latestCloseKey);
+      }
+      dispatch(changeOpenKeys(nextOpenKeys));
+    },
+    [openKeys, dispatch],
+  );
 
-  const mode = isCollapsed === true ? 'vertical' : 'inline';
-  const onMouseEnter = () => {
-    if (collapsed && openDrawer === false) {
+  const onMouseEnter = useCallback(() => {
+    if (collapsed && !openDrawer) {
       dispatch(toggleOpenDrawer());
     }
-  };
+  }, [collapsed, openDrawer, dispatch]);
 
-  const onMouseLeave = () => {
-    if (collapsed && openDrawer === true) {
+  const onMouseLeave = useCallback(() => {
+    if (collapsed && openDrawer) {
       dispatch(toggleOpenDrawer());
     }
-  };
+  }, [collapsed, openDrawer, dispatch]);
+
+  const isCollapsed = collapsed && !openDrawer;
+
+  const mode = isCollapsed ? 'vertical' : 'inline';
+
+  const scrollHeight = height - 55;
 
   return (
     <SidebarWrapper>
       <Sider
+        className="sidebar"
+        width={220}
         trigger={null}
         collapsible
         collapsed={isCollapsed}
-        width={240}
-        className="sidebar"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -86,7 +96,7 @@ export default function Sidebar() {
             </h3>
           )}
         </div>
-        <Scrollbar style={{ height: height - 70 }}>
+        <Scrollbar style={{ height: scrollHeight }}>
           <Menu
             onClick={handleClick}
             theme="dark"
@@ -105,3 +115,5 @@ export default function Sidebar() {
     </SidebarWrapper>
   );
 }
+
+export default Sidebar;

@@ -6,11 +6,11 @@ const SidebarWrapper = styled.div`
   .sidebar {
     z-index: 1000;
     background: ${palette('secondary', 0)};
-    width: 280px;
-    flex: 0 0 280px;
+    width: 220px;
+    flex: 0 0 220px;
 
     .scrollarea {
-      height: calc(100vh - 70px);
+      height: calc(100vh - 55px);
     }
 
     @media only screen and (max-width: 767px) {
@@ -28,7 +28,7 @@ const SidebarWrapper = styled.div`
     }
 
     .logoWrapper {
-      height: 70px;
+      height: 55px;
       background: rgba(0, 0, 0, 0.3);
       margin: 0;
       padding: 0 10px;
@@ -40,7 +40,7 @@ const SidebarWrapper = styled.div`
         a {
           font-size: 21px;
           font-weight: 300;
-          line-height: 70px;
+          line-height: 55px;
           letter-spacing: 3px;
           text-transform: uppercase;
           color: ${palette('grayscale', 6)};
@@ -88,20 +88,13 @@ const SidebarWrapper = styled.div`
         display: flex;
         align-items: center;
 
-        i {
+        svg {
           font-size: 19px;
           color: inherit;
-          margin: ${props => (props['data-rtl'] === 'rtl' ? '0 0 0 30px' : '0 30px 0 0')};
+          margin: ${props => (props['data-rtl'] === 'rtl' ? '0 0 0 16px' : '0 16px 0 0')};
           width: 18px;
           ${transition()};
         }
-      }
-
-      .anticon {
-        font-size: 18px;
-        margin-right: 30px;
-        color: inherit;
-        ${transition()};
       }
 
       .nav-text {

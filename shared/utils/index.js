@@ -1,4 +1,6 @@
 export * from './validator';
 export * from './helpers/styleUtils';
 export * from './helpers/localStorage';
-export * from './helpers/detectBrowserLocale';
+
+export { default as detectBrowserLocale } from './helpers/detectBrowserLocale';
+export { default as getDeviceView } from './helpers/getDeviceView';

@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createAction, createReducer } from '@reduxjs/toolkit';
-import { fetchActionCreator } from 'utils/redux';
+import { createReducer } from '@reduxjs/toolkit';
+import { fetchActionCreator, actionCreator } from 'utils/redux';
 
 export const actions = {
   checkAuth: fetchActionCreator('auth/CHECK'),
   signIn: fetchActionCreator('auth/SIGN_IN'),
-  signOut: createAction('auth/SIGN_OUT'),
+  signOut: actionCreator('auth/SIGN_OUT'),
 };
 
 const initialState = {

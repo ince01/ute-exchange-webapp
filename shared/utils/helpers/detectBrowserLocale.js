@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const detectBrowserLocale = (availableLanguages = ['en', 'vi']) => {
+export default function detectBrowserLocale(availableLanguages = ['en', 'vi']) {
   const locale =
     [
       ...(window.navigator.languages || []),
@@ -12,4 +11,4 @@ export const detectBrowserLocale = (availableLanguages = ['en', 'vi']) => {
       .map(language => language.substr(0, 2))
       .find(language => availableLanguages.includes(language)) || 'en';
   return locale;
-};
+}
