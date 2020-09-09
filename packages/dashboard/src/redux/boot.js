@@ -27,30 +27,21 @@ const checkAuthenticated = () =>
 export default function intialBoot() {
   console.log('%c Initial boot app...', 'color: blue; font-weight: bold;');
   let status = 'pending';
-  let error;
-  let authenticated;
   const suspender = checkAuthenticated().then(
-    data => {
+    () => {
       status = 'success';
-      authenticated = data;
       console.log('%c Boot app success!', 'color: green; font-weight: bold;');
     },
-    err => {
+    () => {
       status = 'error';
-      error = err;
       console.log('%c Boot app error!', 'color: red; font-weight: bold;');
     },
   );
-  return {
-    // eslint-disable-next-line consistent-return
-    booting: () => {
-      if (status === 'pending') {
-        throw suspender;
-      } else if (status === 'error') {
-        throw error;
-      } else if (status === 'success') {
-        return authenticated;
-      }
-    },
+  // eslint-disable-next-line consistent-return
+  return () => {
+    console.log('intialBoot -> status', status);
+    if (status === 'pending') {
+      throw suspender;
+    }
   };
 }

@@ -26,7 +26,7 @@ const interactiveRoutes = [
 const bootApp = intialBoot();
 
 export default function AppRouter() {
-  bootApp.booting();
+  bootApp();
   return (
     <BrowserRouter>
       <Suspense fallback={<Spin />}>
