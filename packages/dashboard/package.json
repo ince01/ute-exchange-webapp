@@ -9,7 +9,13 @@
     "test": "react-app-rewired test",
     "pre-build": "yarn build:css && yarn extract-intl",
     "build:css": "tailwindcss build src/assets/styles/tailwind.scss -o src/assets/styles/globalStyles.css",
-    "extract-intl": "extract-messages -l en_US,vi_VN -o src/config/translations/locales --flat true -d en_US 'src/**/messages.js'"
+    "extract-intl": "extract-messages -l en_US,vi_VN -o src/config/translations/locales --flat true -d en_US 'src/**/messages.js'",
+    "extract-messages:en_US": "formatjs extract 'src/**/*.js*' --out-file src/translations/entries/en_US.extracted.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' --extract-from-format-message-call --format formatter.extract.js",
+    "extract-messages:vi_VN": "formatjs extract 'src/**/*.js*' --out-file src/translations/entries/vi_VN.extracted.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' --extract-from-format-message-call --format formatter.extract.js",
+    "compile-messages:en_US": "formatjs compile src/translations/entries/en_US.extracted.json --out-file src/translations/locales/en_US.compiled.json --format formatter.compile.js",
+    "compile-messages:vi_VN": "formatjs compile src/translations/entries/vi_VN.extracted.json --out-file src/translations/locales/vi_VN.compiled.json --format formatter.compile.js",
+    "extract-messages": "yarn extract-messages:en_US && yarn extract-messages:vi_VN",
+    "compile-messages": "yarn compile-messages:en_US && yarn compile-messages:vi_VN"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -48,6 +54,7 @@
   "devDependencies": {
     "@clarketm/saga-monitor": "^2.0.1",
     "babel-plugin-import": "^1.13.0",
+    "babel-plugin-react-intl": "^8.2.0",
     "customize-cra": "^0.9.1",
     "react-app-rewired": "^2.1.5",
     "react-hook-form-devtools": "^1.1.3"

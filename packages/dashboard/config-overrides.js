@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const { override, babelInclude, fixBabelImports } = require('customize-cra');
+const { override, babelInclude, fixBabelImports, addBabelPlugins } = require('customize-cra');
 
 module.exports = (config, env) => {
   const overrideCustomizeCra = override(
@@ -17,6 +17,16 @@ module.exports = (config, env) => {
       libraryDirectory: 'es',
       style: 'css',
     }),
+    ...addBabelPlugins([
+      [
+        'react-intl',
+        {
+          idInterpolationPattern: '[sha512:contenthash:base64:6]',
+          extractFromFormatMessageCall: true,
+          ast: true,
+        },
+      ],
+    ]),
   )(config, env);
   return Object.assign(config, {
     ...overrideCustomizeCra,
